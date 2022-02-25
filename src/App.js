@@ -21,7 +21,6 @@ function App() {
 
 
 
-
   //Se crea funcion AGREGAR NUEVOS USUARIOS recibe como parametro un usuario(objetos con sus propiedades id,name,username), luego generamos un id para este usuario nuevo y modificamos el array para añadirle el nuevo usuario,los tres puntos que van antes del nombre de la lista significa que se va a concatenar a el array el user
   const addUser = (user) => {
     user.id = uuidv4()
@@ -31,6 +30,8 @@ function App() {
     ])
   }
   //el usuario que recibe la funcion addUser (user) lo capturamos en el formulario que esta en el componente AddUserForm
+
+
 
 
 
@@ -44,6 +45,9 @@ const deleteUser = id => {
 }
 
 
+
+
+
 //Funcion para editar Usuarios
 const [editing, setEditing] = useState(false);
 
@@ -51,11 +55,22 @@ const [currentUser, setCurrentUser] = useState({
   id: null, name: '', username:''
 });
 
+//edita las columnas
 const editRow = (user) => {
 
   setEditing(true);
   setCurrentUser({ id: user.id, name: user.name, username: user.username})
   
+}
+
+
+//funcion para actualizar en la tabla los valores editados
+const updateUser = (id, updateUser) => {
+  //Se sale del modo editar
+  setEditing(false);
+
+  //Recorrido de los usuarios donde por cada uno de los usuarios vamos hacer la siguiente pregunta, si el id coincide utilizamos el nuevo usuario si no seguimos usuando el que tenemos
+  setUsers(users.map( user => (user.id === id ? updateUser : user)))
 }
 
 
@@ -82,6 +97,7 @@ const editRow = (user) => {
             <h2>Edit User</h2>
             <EditUserForm
             currentUser={currentUser}
+            updateUser={updateUser}
             />
             
 

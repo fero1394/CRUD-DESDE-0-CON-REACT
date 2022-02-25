@@ -7,18 +7,27 @@ function EditUserForm(props) {
 
     //react-hook-form es una 'libreria' para manejar fomularios y su ventaja es poder validar formularios de una forma muy sencilla la funcion handleSubmit es la encargada de hacer las validaciones en cada input, con el register le vamos a decir que queremos validar de el input ya sea minimo de palabras o maximo e.t.c
     //const {register, errors, handleSubmit} = useForm();
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: props.currentUser//Valores por defecto para editar esta es una funcion de reac-hook-form 
     });
+
+
+
 
     //funcion para capturar la informacion del formulario y convertirla en objeto para asi enviarla por addUser para que la añada al array
     const onSubmit = (data, e) => {
         //console.log(data)
-        props.addUser(data)
+
+        data.id = props.currentUser.id
+
+        //actualiza el usuario en la tabla
+        props.updateUser(props.currentUser.id, data)
 
         //limpia los campos despues hacer onSubmit
-        e.target.reset();
+        e.target.reset( );
     }
+
+
 
   return (
       //el onSubmit llama a la funcion para pasarle por parametro el handleSubmit
