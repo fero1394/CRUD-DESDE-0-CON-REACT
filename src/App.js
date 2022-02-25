@@ -47,6 +47,17 @@ const deleteUser = id => {
 //Funcion para editar Usuarios
 const [editing, setEditing] = useState(false);
 
+const [currentUser, setCurrentUser] = useState({
+  id: null, name: '', username:''
+});
+
+const editRow = (user) => {
+
+  setEditing(true);
+  setCurrentUser({ id: user.id, name: user.name, username: user.username})
+  
+}
+
 
 
 
@@ -61,13 +72,18 @@ const [editing, setEditing] = useState(false);
     <div className="flex-row">
       <div className="flex-large">
 
+
+
       {/**Esto es un condicional que pregunta si el botton editar fue presionado si es asi ejecuta el primer bloque de codigo para editar usuario y muestra todo el bloque en pantalla por eso es importante que este dentro de un contenedor div ya que se va a ejecutar todo, si no es asi ejecuta el 'else' segundo bloque de codigo */}
       {
         editing ? (
           <div>
 
             <h2>Edit User</h2>
-            <EditUserForm/>
+            <EditUserForm
+            currentUser={currentUser}
+            />
+            
 
           </div>
         ) : (
@@ -80,7 +96,6 @@ const [editing, setEditing] = useState(false);
       }
         
 
-
         
       </div>
       <div className="flex-large">
@@ -91,7 +106,9 @@ const [editing, setEditing] = useState(false);
         <UserTable 
         users={users} 
         deleteUser={deleteUser} 
-        setEditing={setEditing}/> 
+        setEditing={setEditing}
+        editRow={editRow}
+        /> 
       </div>
     </div>
   </div>

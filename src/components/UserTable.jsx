@@ -24,10 +24,14 @@ function UserTable(props) {
                     <td>{user.name}</td>
                     <td>{user.username}</td>
                     <td>
+
                     <button className="button muted-button"
-                    onClick={() => {props.setEditing(true)}}
+                    onClick={() => {props.editRow(user)}}
                     >Edit</button>{" "}
                     {/**El onClick se le pasa una funcion de flecha para que no se ejecute la funcion deleteUser de inmediato */}
+
+
+                    
                     <button 
                     className="button muted-button"
                     onClick={() => {props.deleteUser(user.id)}}
